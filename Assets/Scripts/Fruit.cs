@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
+    public bool isVR = false;
     public GameObject whole;
     public GameObject sliced;
 
@@ -20,7 +21,14 @@ public class Fruit : MonoBehaviour
 
     private void Slice(Vector3 direction, Vector3 position, float force)
     {
-        GameManager.Instance.IncreaseScore(points);
+        if (isVR)
+        {
+            GameManagerVR.Instance.IncreaseScore(points);
+        }
+        else
+        {
+            GameManager.Instance.IncreaseScore(points);
+        }
 
         // Disable the whole fruit
         fruitCollider.enabled = false;
@@ -49,6 +57,13 @@ public class Fruit : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Blade blade = other.GetComponent<Blade>();
+            Slice(blade.Direction, blade.transform.position, blade.sliceForce);
+        }
+
+        if (other.CompareTag("PlayerVR"))
+        {
+            Debug.Log(other.name);
+            BladeVR blade = other.GetComponent<BladeVR>();
             Slice(blade.Direction, blade.transform.position, blade.sliceForce);
         }
     }

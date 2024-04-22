@@ -1,13 +1,13 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManagerVR : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManagerVR Instance { get; private set; }
 
-    [SerializeField] private Blade blade;
+    [SerializeField] private BladeVR bladeLeft;
+    [SerializeField] private BladeVR bladeRight;
     [SerializeField] private Spawner spawner;
     [SerializeField] private Text scoreText;
     [SerializeField] private Image fadeImage;
@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
 
         ClearScene();
 
-        blade.enabled = true;
+        bladeLeft.enabled = true;
+        bladeRight.enabled = true;
         spawner.enabled = true;
 
         score = 0;
@@ -74,7 +75,8 @@ public class GameManager : MonoBehaviour
 
     public void Explode()
     {
-        blade.enabled = false;
+        bladeLeft.enabled = false;
+        bladeRight.enabled = false;
         spawner.enabled = false;
 
         StartCoroutine(ExplodeSequence());

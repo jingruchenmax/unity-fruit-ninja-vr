@@ -4,5 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/FruitNinja-VR.unity
+    guid: 5c29e98886a05624b8df792bac584a55
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 8ab3d42f8287b8e468358f613e7aedeb, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d3585c4418681ba408c9cc35b222a2e1, type: 2}
