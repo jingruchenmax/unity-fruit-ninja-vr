@@ -9,7 +9,7 @@ public class GameLogger : MonoBehaviour
     private string logFilePath;
     string customFileName = "";
     public static GameLogger Instance { get; private set; }
-
+    DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
     private void Awake()
     {
         customFileName = configuration.name;
@@ -23,11 +23,16 @@ public class GameLogger : MonoBehaviour
     }
     void Start()
     {
+        // Define the Unix epoch
+        unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         // Create a timestamp for the log file
-        string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        // Get the current time
+        DateTime now = DateTime.UtcNow;
 
+        // Calculate the Unix timestamp
+        long unixTimestamp = (long)(now - unixEpoch).TotalSeconds;
         // Generate the log file path with the custom name and timestamp
-        logFilePath = $"{Application.persistentDataPath}/{customFileName}_{timestamp}.csv";
+        logFilePath = $"{Application.persistentDataPath}/{customFileName}_{unixTimestamp}.csv";
         Debug.Log(logFilePath);
         // Create and write the CSV header
         using (StreamWriter writer = new StreamWriter(logFilePath, false, Encoding.UTF8))
@@ -73,10 +78,6 @@ public class GameLogger : MonoBehaviour
     {
         // Get the current time
         DateTime now = DateTime.UtcNow;
-
-        // Define the Unix epoch
-        DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
         // Calculate the Unix timestamp
         long unixTimestamp = (long)(now - unixEpoch).TotalSeconds;
         string logEntry = $"{unixTimestamp},{gameEvent}";

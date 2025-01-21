@@ -10685,7 +10685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272d96e05a347dc4c9dc0cf869e0bab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
 --- !u!114 &1104812648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10698,7 +10698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9859cd33d38d244dbc2ba01cad79e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   headset: {fileID: 979163499}
 --- !u!4 &1104812649
 Transform:
@@ -11104,7 +11104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf67bc3aa0b86354ebda6878eda1c561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   fruitPrefabs:
   - {fileID: 1345022896480124042, guid: 52b8ac343367b4e4fa5751cd66959049, type: 3}
   - {fileID: 9137535743039622809, guid: 0dcc64b103ea1f541bcbd5f7d496ca82, type: 3}
@@ -12442,7 +12442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175874cbb38d40244944db334b550ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   sliceForce: 5
   minSliceVelocity: 0.1
   controller: 1
@@ -17964,7 +17964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e15b8508b632b439b733ef0a24a109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelConfiguration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  levelConfiguration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   comboManager: {fileID: 1927629404}
   gameManagerVR: {fileID: 1927629402}
   bladeVRLeft: {fileID: 7670372674980708636}
@@ -18574,7 +18574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e71f290455b2894681bd919f44c0ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   bladeLeft: {fileID: 7670372674980708636}
   bladeRight: {fileID: 1232802052}
   spawner: {fileID: 1149486967}
@@ -18691,7 +18691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad43f8c14130d441a53b1b811a9582e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   comboDuration: 1
   comboAudioClips:
   - {fileID: 8300000, guid: 05bf77866fd2011428ced9159725321e, type: 3}
@@ -74921,7 +74921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175874cbb38d40244944db334b550ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: 3a605890c6286fc469d9d3fac2b47980, type: 2}
+  configuration: {fileID: 11400000, guid: b8728195692fcc849895b92ad4eb9707, type: 2}
   sliceForce: 5
   minSliceVelocity: 0.1
   controller: 0
