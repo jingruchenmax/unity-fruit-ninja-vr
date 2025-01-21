@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class Blade : MonoBehaviour
 {
+    public bool isAudioOn;
+    public bool isHapticOn;
+    public bool isVisualIndicatorOn;
+
     public float sliceForce = 5f;
     public float minSliceVelocity = 0.01f;
 

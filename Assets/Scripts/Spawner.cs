@@ -4,10 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Spawner : MonoBehaviour
 {
+    public LevelConfiguration configuration;
     private Collider spawnArea;
-
     public GameObject[] fruitPrefabs;
     public GameObject bombPrefab;
+
     [Range(0f, 1f)] public float bombChance = 0.05f;
 
     public float minSpawnDelay = 0.25f;
@@ -24,6 +25,21 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         spawnArea = GetComponent<Collider>();
+        foreach (var fruitPrefab in fruitPrefabs)
+        {
+            fruitPrefab.GetComponent<Fruit>().isIndicatorHapticOn = configuration.enableSpawnerIndicatorHaptic;
+            fruitPrefab.GetComponent<Fruit>().isIndicatorAudioOn = configuration.enableSpawnerIndicatorAudio;
+            fruitPrefab.GetComponent<Fruit>().isFeedbackHapticOn = configuration.enableSpawnerFeedbackHaptic;
+            fruitPrefab.GetComponent<Fruit>().isFeedbackAudioOn = configuration.enableSpawnerFeedbackAudio;
+            fruitPrefab.GetComponent<Fruit>().isFeedbackVisualOn = configuration.enableSpawnerFeedbackVisual;
+        }
+        bombPrefab.GetComponent<Bomb>().isIndicatorAudioOn = configuration.enableSpawnerIndicatorAudio;
+        bombPrefab.GetComponent<Bomb>().isIndicatorParticleOn = configuration.enableSpawnerIndicatorVisual;
+        bombPrefab.GetComponent<Bomb>().isIndicatorHapticOn = configuration.enableSpawnerIndicatorHaptic;
+        bombPrefab.GetComponent<Bomb>().isFeedbackVisualOn = configuration.enableSpawnerFeedbackVisual;
+        bombPrefab.GetComponent<Bomb>().isFeedbackAudioOn = configuration.enableSpawnerFeedbackAudio;
+        bombPrefab.GetComponent<Bomb>().isFeedbackHapticOn = configuration.enableSpawnerFeedbackHaptic;
+
     }
 
     private void OnEnable()
@@ -43,9 +59,11 @@ public class Spawner : MonoBehaviour
         while (enabled)
         {
             GameObject prefab = fruitPrefabs[Random.Range(0, fruitPrefabs.Length)];
+            GameLogger.Instance.LogGenerateFruit();
 
             if (Random.value < bombChance) {
                 prefab = bombPrefab;
+                GameLogger.Instance.LogGenerateBomb();
             }
 
             Vector3 position = new Vector3

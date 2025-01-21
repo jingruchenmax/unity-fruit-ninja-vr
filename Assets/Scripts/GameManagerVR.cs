@@ -1,37 +1,81 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManagerVR : MonoBehaviour
 {
     public static GameManagerVR Instance { get; private set; }
-
+    public LevelConfiguration configuration;
     [SerializeField] private BladeVR bladeLeft;
     [SerializeField] private BladeVR bladeRight;
     [SerializeField] private Spawner spawner;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Image fadeImage;
+    [SerializeField] private TextMeshPro scoreText;
+    [SerializeField] private TextMeshPro deathText;
+    [SerializeField] private TextMeshPro timerText;
 
-    private int score;
+    [SerializeField]
+    private float timeRemaining = 120f; // 2 minutes in seconds
+    [SerializeField] bool timerRunning = true;
+    bool isGameStarted = false;
+    private int score=0;
+    private int death=0;
+    bool isdying = false;
+
     public int Score => score;
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             DestroyImmediate(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        timeRemaining = configuration.timer;
+        timerRunning = configuration.isTimerOn;
     }
 
-    private void Start()
+    public void StartGame()
     {
-        NewGame();
+        if(!isGameStarted)
+        {
+            isGameStarted = true;
+            GameLogger.Instance.LogTimerStart();
+            NewGame();
+            if (timerRunning)
+            {
+                StartCoroutine(StartTimer());
+            }
+        }
+    }
+
+    private IEnumerator StartTimer()
+    {
+        while (timeRemaining > 0)
+        {
+            timeRemaining -= 1f;
+            UpdateTimerDisplay(timeRemaining);
+            yield return new WaitForSeconds(1f); // Wait for 1 second
+        }
+
+        TimerEnd();
+    }
+
+    void UpdateTimerDisplay(float timeToDisplay)
+    {
+        int minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        int seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void NewGame()
     {
+        isdying = false;
+        GameLogger.Instance.LogGameStart();
         Time.timeScale = 1f;
 
         ClearScene();
@@ -42,25 +86,27 @@ public class GameManagerVR : MonoBehaviour
 
         score = 0;
         scoreText.text = score.ToString();
+
+        // Reset combos
+        ComboManager.Instance?.ResetCombo();
     }
 
     private void ClearScene()
     {
-        Fruit[] fruits = FindObjectsOfType<Fruit>();
-
-        foreach (Fruit fruit in fruits) {
+        foreach (Fruit fruit in FindObjectsOfType<Fruit>())
+        {
             Destroy(fruit.gameObject);
         }
 
-        Bomb[] bombs = FindObjectsOfType<Bomb>();
-
-        foreach (Bomb bomb in bombs) {
+        foreach (Bomb bomb in FindObjectsOfType<Bomb>())
+        {
             Destroy(bomb.gameObject);
         }
     }
 
     public void IncreaseScore(int points)
     {
+        GameLogger.Instance.LogScoreGained();
         score += points;
         scoreText.text = score.ToString();
 
@@ -68,53 +114,44 @@ public class GameManagerVR : MonoBehaviour
 
         if (score > hiscore)
         {
-            hiscore = score;
-            PlayerPrefs.SetFloat("hiscore", hiscore);
+            PlayerPrefs.SetFloat("hiscore", score);
         }
+
+        // Register a successful score for combo tracking
+        ComboManager.Instance?.RegisterStrike();
     }
 
     public void Explode()
     {
+        if (!isdying)
+        {
+            isdying = true;
+            bladeLeft.enabled = false;
+            bladeRight.enabled = false;
+            spawner.enabled = false;
+
+            // Reset combo when player dies
+            ComboManager.Instance?.ResetCombo();
+
+            GameLogger.Instance.LogPlayerDeath();
+            StartCoroutine(ExplodeSequence());
+        }
+    }
+
+    void TimerEnd()
+    {
         bladeLeft.enabled = false;
         bladeRight.enabled = false;
         spawner.enabled = false;
-
-        StartCoroutine(ExplodeSequence());
+        GameLogger.Instance.LogTimerEnd();
+        ClearScene();
     }
 
     private IEnumerator ExplodeSequence()
     {
-        float elapsed = 0f;
-        float duration = 0.5f;
-
-        // Fade to white
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.clear, Color.white, t);
-
-            Time.timeScale = 1f - t;
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
-
+        death++;
+        deathText.text = death.ToString();
         yield return new WaitForSecondsRealtime(1f);
-
         NewGame();
-
-        elapsed = 0f;
-
-        // Fade back in
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.white, Color.clear, t);
-
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
     }
-
 }
