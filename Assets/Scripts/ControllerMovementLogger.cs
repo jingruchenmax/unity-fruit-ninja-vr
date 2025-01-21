@@ -7,9 +7,11 @@ public class ControllerMovementLogger : MonoBehaviour
 {
     public LevelConfiguration configuration;
     string customFileName = "";
-
+    public Transform headset;
     private string leftLogFilePath;
     private string rightLogFilePath;
+    private string hmdLogFilePath;
+
     bool isLogging = false;
     // Define the Unix epoch
     DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -30,7 +32,7 @@ public class ControllerMovementLogger : MonoBehaviour
         // Generate file paths for left and right controllers
         leftLogFilePath = $"{Application.persistentDataPath}/{customFileName}_{unixTimestamp}_L.csv";
         rightLogFilePath = $"{Application.persistentDataPath}/{customFileName}_{unixTimestamp}_R.csv";
-
+        hmdLogFilePath = $"{Application.persistentDataPath}/{customFileName}_{unixTimestamp}_hmd.csv";
         // Create CSV files and write headers
         CreateLogFile(leftLogFilePath);
         CreateLogFile(rightLogFilePath);
@@ -46,6 +48,7 @@ public class ControllerMovementLogger : MonoBehaviour
         {
             LogControllerMovement(OVRInput.Controller.LTouch, leftLogFilePath);
             LogControllerMovement(OVRInput.Controller.RTouch, rightLogFilePath);
+            LogHMDMovement(headset, hmdLogFilePath);
         }
     }
 
@@ -63,6 +66,24 @@ public class ControllerMovementLogger : MonoBehaviour
         // Get the position and rotation of the controller
         Vector3 position = OVRInput.GetLocalControllerPosition(controller);
         Quaternion rotation = OVRInput.GetLocalControllerRotation(controller);
+
+        // Calculate the Unix timestamp
+        long unixTimestamp = (long)(DateTime.UtcNow - unixEpoch).TotalSeconds;
+
+        // Format the data as a CSV line
+        string logEntry = $"{unixTimestamp},{position.x},{position.y},{position.z},{rotation.x},{rotation.y},{rotation.z},{rotation.w}";
+
+        // Write the log entry to the CSV file
+        using (StreamWriter writer = new StreamWriter(filePath, true, Encoding.UTF8))
+        {
+            writer.WriteLine(logEntry);
+        }
+    }
+
+    private void LogHMDMovement(Transform camera, string filePath)
+    {
+        // Get the position and rotation of the HMD
+        camera.GetLocalPositionAndRotation(out Vector3 position,out Quaternion rotation);
 
         // Calculate the Unix timestamp
         long unixTimestamp = (long)(DateTime.UtcNow - unixEpoch).TotalSeconds;
