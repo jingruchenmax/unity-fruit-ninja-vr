@@ -78,6 +78,7 @@ public class Fruit : MonoBehaviour
                 slice.velocity = fruitRigidbody.velocity;
                 slice.AddForceAtPosition(direction * force, position, ForceMode.Impulse);
             }
+            fruitRigidbody.isKinematic = true;
         }
     }
 
