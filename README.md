@@ -4,16 +4,31 @@
 
 # Original Unity Tutorial
 **Topics**: Physics, 3D Models, Particle Effects
+
 **Version**: Unity 2020.3 (LTS)
+
 [**GitHub**](https://github.com/zigurous/unity-fruit-ninja-tutorial)
+
 [**Watch Video**](https://youtu.be/xTT1Ae_ifhM)
 
 # Fruit Ninja VR
-This VR variation is created for research purpose.
+This VR variation is created for research purposes. The main objective of this project is to measure and evaluate the impact of game effect elements, also known as juice or amplified feedback, on players' emotional and physiological responses. The players are presented with different stimuli by alternating the activation of effects. 
+
+The effect elements include visual, haptic, and audio feedback related to different in-game events. These effects do not directly contribute to the game but may impact players' gaming experience.
+
+The design of integration and in-game event mapping can be categorized into three groups: 
+- input-based effects (sword effects, or labeled as ```movement``` or ```M```)
+- action-based effects (item interaction effects, or labeled as ```feedback``` or ```F```)
+- progress-based effects (combo effects, or labeled as ```gameplay``` or ```G```)
+
+In the controlled basic condition, the indicator effects (labeled ```I```) and the ambient audio are activated.
+
 ## Level Configuration
-Create a scriptable object and drop it to ```Helper > AssetAssignmentHelper```
+Create a scriptable object of ```Level Configuration``` and drop it to ```Helper > AssetAssignmentHelper```
+
 ## Target Platform
 Oculus Quest 3 (main target) and other OpenXR compatible VR devices
+
 ## Dependencies
 - [Meta XR All-in-One SDK](https://assetstore.unity.com/packages/tools/integration/meta-xr-all-in-one-sdk-269657)
 - XR Plug-in Management
