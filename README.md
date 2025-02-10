@@ -23,6 +23,8 @@ The design of integration and in-game event mapping can be categorized into thre
 
 In the controlled basic condition, the indicator effects (labeled ```I```) and the ambient audio are activated.
 
+![image](https://jingruchenmax.github.io/img/vrjuice.jpg)
+
 ## Level Configuration
 Create a scriptable object of ```Level Configuration``` and drop it to ```Helper > AssetAssignmentHelper```
 
