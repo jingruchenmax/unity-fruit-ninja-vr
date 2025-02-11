@@ -64,6 +64,23 @@ public class GameLogger : MonoBehaviour
         LogEvent("Score Gained");
     }
 
+    public void LogStrikeGained(bool isLeft)
+    {
+        if (isLeft)
+        {
+            LogEvent("Strike Left");
+        }
+        else
+        {
+            LogEvent("Strike Right");
+        }
+    }
+
+    public void LogComboGained()
+    {
+        LogEvent("Combo");
+    }
+
     public void LogPlayerDeath()
     {
         LogEvent("Player Dead");

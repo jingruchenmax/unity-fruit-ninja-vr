@@ -99,6 +99,7 @@ public class BladeVR : MonoBehaviour
     private void OnStrikeDetected()
     {
         Debug.Log("Strike detected!");
+        GameLogger.Instance.LogStrikeGained(controller == Controller.Left);
         int index = Random.Range(0, clips.Length);
         // Play audio if enabled
         if (isAudioOn && audioSource != null && clips.Length > 0 && !audioSource.isPlaying)

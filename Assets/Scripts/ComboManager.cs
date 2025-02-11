@@ -97,5 +97,6 @@ public class ComboManager : MonoBehaviour
             ParticleSystem particles = comboParticleSystems[effectIndex];
             if (!particles.isPlaying) particles.Play();
         }
+        GameLogger.Instance.LogComboGained();
     }
 }
