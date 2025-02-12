@@ -17,9 +17,9 @@ This VR variation is created for research purposes. The main objective of this p
 The effect elements include visual, haptic, and audio feedback related to different in-game events. These effects do not directly contribute to the game but may impact players' gaming experience.
 
 The design of integration and in-game event mapping can be categorized into three groups: 
-- input-based effects (sword effects, or labeled as ```movement``` or ```M```)
+- motion-based effects (sword effects, or labeled as ```movement``` or ```M```)
 - action-based effects (item interaction effects, or labeled as ```feedback``` or ```F```)
-- progress-based effects (combo effects, or labeled as ```gameplay``` or ```G```)
+- progression-based effects (combo effects, or labeled as ```gameplay``` or ```G```)
 
 In the controlled basic condition, the indicator effects (labeled ```I```) and the ambient audio are activated.
 
